@@ -1,0 +1,18 @@
+{
+	"id": "TrueLimitBreak",
+	"name": "True Limit Break",
+	"display_name": "True Limit Break",
+	"author": ["Mathematica"],
+	"description": "A Cryptid addon balanced around the Madness gameset. Well, \"balanced\" is a stretch, but this is a Cryptid addon, so you probably knew that already. Development is slow, because this process is pretty complicated and it's kind of hard to stay motivated sometimes, but I do intend to continue working on this for as long as I still have the files.",
+	"prefix": "TLB",
+	"main_file": "TLB.lua",
+	"priority": 1000,
+	"badge_colour": "000000",
+	"badge_text_colour": "FFFFFF",
+	"version": "0.0.1",
+	"dependencies": [
+		"Talisman (>=2.7)",
+		"Steamodded (>=1.0.0~BETA-1224a)",
+		"Cryptid (>=0.5.14a)"
+	],
+}
