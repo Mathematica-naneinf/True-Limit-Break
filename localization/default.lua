@@ -17,7 +17,7 @@ return {
 			j_TLB_test = {
 				name = "Test Joker",
 				text = {
-					"nil",
+					"Played {C:attention}unscoring{} cards give {C:purple}+#1#{} score.",
 					"{s:0.4} ",
 					"{s:0.8,C:inactive}(Effect will change between most updates, and",
 					"{s:0.8,C:inactive}may contain untested or broken code)",
