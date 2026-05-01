@@ -1,3 +1,13 @@
+-- Joker Atlas (Joker Sprites)
+
+SMODS.Atlas {
+	key = "TLB_Jokers",
+	px = 71,
+	py = 95,
+	path = "TLB_Jokers.png"
+}
+
+
 -- Back Atlas (Deck Sprites)
 
 SMODS.Atlas {
@@ -245,14 +255,24 @@ SMODS.Joker {
 	
 	calculate = function(self, card, context)
 		if context.before then
+			
+			-- Define a temporary table called "handtab"
 			local handtab = {}
+			
+			-- Iterate through every hand in the game
 			for k, v in pairs(G.GAME.hands) do
+				
+				-- Check if the hand is contained within the played hand
 				if next(context.poker_hands[k]) then
+					
+					-- Add the hand to the temporary "handtab" table
 					table.insert(handtab, k)
 				end
 			end
 			SMODS.upgrade_poker_hands{
 			level_up = card.ability.extra.levels,
+
+			-- Upgrade every hand in the temporary "handtab" table
 			hands = handtab
 			}
 		end
@@ -281,13 +301,13 @@ SMODS.Back {
 			func = function()
 				if G.jokers then
 					
-					-- Create a "Joker" with key "j_TLB_test".
+					-- Create a "Joker" with key "j_TLB_test"
 					local card = create_card("Joker", G.jokers, nil, nil, nil, nil, "j_TLB_test", nil)
 					
-					-- Place that Joker in the Joker slots.
+					-- Place that Joker in the Joker slots
 					G.jokers:emplace(card)
 					
-					-- Tell the game the function has finished running.
+					-- Tell the game the function has finished running
 					return true
 				end
 			end,
