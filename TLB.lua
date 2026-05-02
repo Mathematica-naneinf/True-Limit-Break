@@ -51,7 +51,6 @@ SMODS.Joker {
 				score = card.ability.extra.score
 			}
 		end
-		
 	end
 }
 
@@ -221,7 +220,6 @@ SMODS.Joker {
 				swap = true
 			}
 		end
-		
 	end
 }
 
@@ -276,7 +274,6 @@ SMODS.Joker {
 			hands = handtab
 			}
 		end
-		
 	end
 }
 
