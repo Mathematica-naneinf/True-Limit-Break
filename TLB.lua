@@ -1,3 +1,21 @@
+-- Hook for the second effect of Big Hands (I'm not entierly sure how this works)
+local score_card_ref = SMODS.score_card
+function SMODS.score_card(card, context)
+	if not G.scorehand and context.cardarea == "unscored" and next(SMODS.find_card("j_TLB_hhaanndd")) then
+		G.scorehand = true
+		context.cardarea = G.hand
+		SMODS.score_card(card, context)
+		G.scorehand = nil
+		context.cardarea = "unscored"
+	end
+	return score_card_ref(card, context)
+end
+
+
+
+
+
+
 -- Joker Atlas (Joker Sprites)
 
 SMODS.Atlas {
@@ -274,6 +292,80 @@ SMODS.Joker {
 			hands = handtab
 			}
 		end
+	end
+}
+
+
+-- Rewrite
+
+SMODS.Joker {
+	key = "rewrite",
+	atlas = "TLB_Jokers",
+	pos = {
+		x = 6, 
+		y = 0
+	},
+	config = {
+		extra = {
+			score = 30
+		},
+	},
+	unlocked = true,
+	discovered = true,
+	rarity = 1,
+	cost = 4,
+	
+	loc_vars = function(self, info_queue, card)
+		return {
+			vars = {
+				card.ability.extra.score
+			}
+		}
+	end,
+	
+	calculate = function(self, card, context)
+		if context.individual and context.cardarea == "unscored" then
+			return {
+				score = card.ability.extra.score
+			}
+		end
+	end
+}
+
+
+-- Big Hands
+
+SMODS.Joker {
+	key = "hhaanndd",
+	atlas = "TLB_Jokers",
+	pos = {
+		x = 7, 
+		y = 0
+	},
+	config = {
+		extra = {
+			hand_size = 5
+		},
+	},
+	unlocked = true,
+	discovered = true,
+	rarity = 3,
+	cost = 9,
+	
+	loc_vars = function(self, info_queue, card)
+		return {
+			vars = {
+				card.ability.extra.hand_size
+			}
+		}
+	end,
+	
+	add_to_deck = function(self, card, from_debuff)
+		G.hand:change_size(card.ability.extra.hand_size)
+	end,
+	
+	remove_from_deck = function(self, card, from_debuff)
+		G.hand:change_size(-card.ability.extra.hand_size)
 	end
 }
 
