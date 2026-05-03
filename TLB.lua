@@ -47,7 +47,7 @@ SMODS.Joker {
 	},
 	config = {
 		extra = {
-			score = 20
+			
 		},
 	},
 	unlocked = true,
@@ -58,15 +58,15 @@ SMODS.Joker {
 	loc_vars = function(self, info_queue, card)
 		return {
 			vars = {
-				card.ability.extra.score
+				
 			}
 		}
 	end,
 	
 	calculate = function(self, card, context)
-		if context.individual and context.cardarea == "unscored" then
+		if context.joker_main then
 			return {
-				score = card.ability.extra.score
+				
 			}
 		end
 	end
