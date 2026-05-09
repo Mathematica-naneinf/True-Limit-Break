@@ -85,6 +85,20 @@ return {
 					"trigger {C:attention}held in hand{} effects."
 				},
 			},
+			
+			j_TLB_left_redist = {
+				name = "Left Redistributor",
+				text = {
+					"{X:chips,C:white}X#1#{} Chips, {X:mult,C:white}X#2#{} Mult"
+				}
+			},
+			
+			j_TLB_right_redist = {
+				name = "Right Redistributor",
+				text = {
+					"{X:chips,C:white}X#1#{} Chips, {X:mult,C:white}X#2#{} Mult"
+				}
+			},
 
 
 		},
