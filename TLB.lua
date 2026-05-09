@@ -370,6 +370,92 @@ SMODS.Joker {
 }
 
 
+-- Left Redistributor
+
+SMODS.Joker {
+	key = "left_redist",
+	atlas = "TLB_Jokers",
+	pos = {
+		x = 8, 
+		y = 0
+	},
+	config = {
+		extra = {
+			xchips = 3,
+			xmult = 0.5
+		},
+	},
+	unlocked = true,
+	discovered = true,
+	rarity = 1,
+	cost = 4,
+	
+	loc_vars = function(self, info_queue, card)
+		return {
+			vars = {
+				card.ability.extra.xchips,
+				card.ability.extra.xmult
+			}
+		}
+	end,
+	
+	calculate = function(self, card, context)
+		if context.joker_main then
+			return {
+				xchips = card.ability.extra.xchips,
+				xmult = card.ability.extra.xmult,
+				remove_default_message = true,
+				message = 'Redistributed!',
+            			colour = G.C.PURPLE
+			}
+		end
+	end
+}
+
+
+-- Right Redistributor
+
+SMODS.Joker {
+	key = "right_redist",
+	atlas = "TLB_Jokers",
+	pos = {
+		x = 9, 
+		y = 0
+	},
+	config = {
+		extra = {
+			xchips = 0.5,
+			xmult = 3
+		},
+	},
+	unlocked = true,
+	discovered = true,
+	rarity = 1,
+	cost = 4,
+	
+	loc_vars = function(self, info_queue, card)
+		return {
+			vars = {
+				card.ability.extra.xchips,
+				card.ability.extra.xmult
+			}
+		}
+	end,
+	
+	calculate = function(self, card, context)
+		if context.joker_main then
+			return {
+				xchips = card.ability.extra.xchips,
+				xmult = card.ability.extra.xmult,
+				remove_default_message = true,
+				message = 'Redistributed!',
+            			colour = G.C.PURPLE
+			}
+		end
+	end
+}
+
+
 
 
 -- Test Deck
