@@ -1,3 +1,19 @@
+-- Welcome to the code behind True Limit Break.
+-- The lines of code that follow are what makes everything work, and I've tried to comment them to the best of my understanding.
+-- At some point, I'll probably split this code into multiple files, but, for now, I see no reason to.
+
+
+
+
+
+
+
+
+
+
+
+-- Hooks
+
 -- Hook for the second effect of Big Hands (I'm not entierly sure how this works)
 local score_card_ref = SMODS.score_card
 function SMODS.score_card(card, context)
@@ -14,9 +30,9 @@ end
 
 
 
+-- Atlases
 
-
--- Joker Atlas (Joker Sprites)
+-- Joker Atlas
 
 SMODS.Atlas {
 	key = "TLB_Jokers",
@@ -26,7 +42,7 @@ SMODS.Atlas {
 }
 
 
--- Back Atlas (Deck Sprites)
+-- Back Atlas
 
 SMODS.Atlas {
 	key = "TLB_Backs",
@@ -35,6 +51,10 @@ SMODS.Atlas {
 	path = "TLB_Backs.png"
 }
 
+
+
+
+-- Jokers
 
 -- Test Joker
 
@@ -457,6 +477,8 @@ SMODS.Joker {
 
 
 
+
+-- Decks
 
 -- Test Deck
 
