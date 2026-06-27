@@ -151,6 +151,9 @@ SMODS.Joker {
 	unlocked = true,
 	discovered = true,
 	rarity = 2,
+	pools = {
+		["Meme"] = true
+	},
 	cost = 5,
 	
 	loc_vars = function(self, info_queue, card)
@@ -243,6 +246,9 @@ SMODS.Joker {
 	unlocked = true,
 	discovered = true,
 	rarity = 3,
+	pools = {
+		["Meme"} = true
+	},
 	cost = 7,
 	
 	loc_vars = function(self, info_queue, card)
@@ -372,6 +378,9 @@ SMODS.Joker {
 	unlocked = true,
 	discovered = true,
 	rarity = 3,
+	pools = {
+		["Meme"] = true
+	},
 	cost = 9,
 	
 	loc_vars = function(self, info_queue, card)
