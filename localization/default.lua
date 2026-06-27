@@ -100,6 +100,17 @@ return {
 				}
 			},
 
+			j_TLB_clover = {
+				name = "Join The Club!",
+				text = {
+					"If {C:attention}scoring hand{} contains",
+					"at least three {C:clubs}clubs{},",
+					"Convert all played cards",
+					"into {C:clubs}clubs{} after scoring."
+				},
+			},
+
+
 
 		},
 		Other={},
