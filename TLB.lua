@@ -30,6 +30,7 @@ end
 
 
 
+
 -- Atlases
 
 -- Joker Atlas
@@ -50,6 +51,7 @@ SMODS.Atlas {
 	py = 95,
 	path = "TLB_Backs.png"
 }
+
 
 
 
@@ -474,6 +476,74 @@ SMODS.Joker {
 		end
 	end
 }
+
+
+-- Join The Club!
+
+SMODS.Joker {
+	key = "clover",
+	atlas = "TLB_Jokers",
+	pos = {
+		x = 0, 
+		y = 1
+	},
+	config = {
+		extra = {
+			
+		},
+	},
+	unlocked = true,
+	discovered = true,
+	rarity = 3,
+	cost = 7,
+	
+	loc_vars = function(self, info_queue, card)
+		return {
+			vars = {
+				
+			}
+		}
+	end,
+	
+	calculate = function(self, card, context)
+		if context.after and not context.blueprint then
+
+			-- Define a temporary variable to store the number of scoring Clubs
+			local scoring_clubs = 0
+
+
+			-- Iterate through every scoring card to check how many of them are Clubs
+			for i, v in pairs(context.scoring_hand) do
+				if v:is_suit("Clubs") then
+					scoring_clubs = scoring_clubs + 1
+				end
+			end
+			
+
+
+			-- Check for at least 3 scoring clubs
+			if scoring_clubs > 2 then
+
+
+				-- Iterate through every played card
+				for i, v in pairs(context.full_hand) do
+
+				-- Change the card's suit to Clubs
+				assert(SMODS.change_base(v, "Clubs", nil, true))
+
+				-- Ensure this change happens at the right time
+				G.E_MANAGER:add_event(Event({
+					func = function()
+						v:set_sprites(nil, v.config.card)
+						return true
+					end
+				}))
+				end
+			end
+		end
+	end
+}
+
 
 
 
