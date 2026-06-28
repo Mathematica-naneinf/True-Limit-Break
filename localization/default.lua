@@ -1,7 +1,14 @@
 return {
 	descriptions = {
 		Back = {
-			
+			b_TLB_synergy = {
+				name = "Synergy Deck",
+				text = {
+					"{C:chips,T:m_bonus}Bonus cards{} give {X:mult,C:white}X#1#{} Mult",
+					"{C:mult,T:m_mult}Mult cards{} give {X:chips,C:white}X#2#{} Chips",
+					"{V:1,T:m_steel}Steel Cards{} held in hand give {C:chips}+#3#{} Chips",
+				},
+			},
 		},
 		Blind={},
 		Edition={},
