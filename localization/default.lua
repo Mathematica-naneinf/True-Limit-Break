@@ -1,14 +1,7 @@
 return {
 	descriptions = {
 		Back = {
-			b_TLB_test = {
-				name = "Test Deck",
-				text = {
-					"Start run with a {C:attention,T:j_TLB_test}Test Joker{}",
-					"{s:0.4} ",
-					"{s:0.8,C:inactive}(Effect may change between updates)",
-				},
-			},
+			
 		},
 		Blind={},
 		Edition={},
