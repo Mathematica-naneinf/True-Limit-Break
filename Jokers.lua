@@ -4,37 +4,7 @@
 
 
 
--- Test Joker
 
-SMODS.Joker {
-	key = "test",
-	atlas = "TLB_Jokers",
-	pos = {
-		x = 0, 
-		y = 0
-	},
-	config = {
-		extra = {
-			
-		},
-	},
-	unlocked = true,
-	discovered = true,
-	rarity = 1,
-	cost = 3,
-	
-	loc_vars = function(self, info_queue, card)
-		return {
-			vars = {
-				
-			}
-		}
-	end,
-	
-	calculate = function(self, card, context)
-		
-	end
-}
 
 
 -- Early Bird
