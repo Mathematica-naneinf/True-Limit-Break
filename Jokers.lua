@@ -465,3 +465,54 @@ SMODS.Joker {
 		end
 	end
 }
+
+
+-- Rude Buster
+
+SMODS.Joker {
+	key = "rude",
+	atlas = "TLB_Jokers",
+	pos = {
+		x = 1,
+		y = 1
+	},
+	config = {
+		extra = {
+			damage = 300,
+			scalar = 50
+		},
+	},
+	unlocked = true,
+	discovered = true,
+	rarity = 3,
+	cost = 11,
+	
+	loc_vars = function(self, info_queue, card)
+		return {
+			vars = {
+				card.ability.extra.damage,
+				card.ability.extra.scalar,
+				colours = {
+					HEX("FF2CF9")
+				}
+			}
+		}
+	end,
+	
+	calculate = function (self, card, context)
+		if context.before then
+			G.GAME.blind.chips = G.GAME.blind.chips - card.ability.extra.damage
+			G.GAME.blind.chip_text = number_format(G.GAME.blind.chips)
+			G.HUD_blind:recalculate()
+		end
+		
+		if context.end_of_round and context.beat_boss then
+			card.ability.extra.damage = card.ability.extra.damage + card.ability.extra.scalar
+		end
+	end
+}
+
+
+
+
+
