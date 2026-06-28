@@ -14,17 +14,6 @@ return {
 		Edition={},
 		Enhanced={},
 		Joker = {
-			j_TLB_test = {
-				name = "Test Joker",
-				text = {
-					"Nil",
-					"{s:0.4} ",
-					"{s:0.8,C:inactive}(Effect will change between most updates, and",
-					"{s:0.8,C:inactive}may contain untested or broken code)",
-					"{s:0.4} ",
-					"{s:0.7,C:inactive}\"Sneak preview?\"",
-				},
-			},
 			
 			j_TLB_early = {
 				name = "Early Bird",
@@ -110,6 +99,15 @@ return {
 				},
 			},
 
+			j_TLB_rude = {
+				name = "Rude Buster",
+				text = {
+					"When hand is played, {V:1}-#1#{} blind requirement",
+					"Damage increases by {V:1}#2#{} when {C:attention}boss blind{} is defated",
+					"{s:0.4} ",
+					"{s:0.7,C:inactive}\"Don't expect me to do anything but fight.\"",
+				}
+			},
 
 
 		},
