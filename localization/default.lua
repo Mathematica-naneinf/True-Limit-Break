@@ -105,9 +105,75 @@ return {
 					"When hand is played, {V:1}-#1#{} blind requirement",
 					"Damage increases by {V:1}#2#{} when {C:attention}boss blind{} is defated",
 					"{s:0.4} ",
-					"{s:0.7,C:inactive}\"Don't expect me to do anything but fight.\"",
+					"{s:0.7,C:inactive}#3#",
 				}
 			},
+			
+			j_TLB_heal = {
+				name = "Heal Prayer",
+				text = {
+					"Gain {C:blue}+#1#{} hand every {C:attention}#2#{} discards",
+					"{C:inactive}({C:attention}#3# {C:inactive}discards since last activation){}",
+					"{s:0.4} ",
+					"{s:0.7,C:inactive}#4#",
+				}
+			},
+			
+			j_TLB_ice = {
+				name = "Iceshock",
+				text = {
+					"When hand is played, {V:1}-#1#{} blind requirement",
+					"Damage increases by {V:1}#2#{} every activation",
+					"Transforms into {V:2,T:j_TLB_grave}SNOWGRAVE{} after #3# activations",
+					"{C:inactive}(#4# LEFT.)",
+					"{s:0.4} ",
+					"{s:0.7,C:inactive}\"Stronger? Right, I guess that's how it works here...\"",
+				}
+			},
+			
+			j_TLB_slash = {
+				name = "X-Slash",
+				text = {
+					"When hand is played,",
+					"{V:1}-#1#{} blind requirement {C:attention}twice",
+					"{s:0.4} ",
+					"{s:0.7,C:inactive}#2#",
+				}
+			},
+			
+			j_TLB_grave = {
+				name = "SNOWGRAVE",
+				text = {
+					"When hand is played, {V:2}/#3#{} blind requirement",
+					"then {V:1}-#1#{} blind requirement",
+					"Damage increases by {V:1}#2#{} every activation",
+					"Frost multiplies by {V:2}#4#{} when {C:attention}boss blind{} is defeated",
+					"{s:0.6} ",
+					"After hand scores, {V:3}freeze{} all played cards",
+					"{s:0.4} ",
+					"{s:0.7,C:inactive}\"WATCH WHAT HAPPENS WHEN I CAST A SPELL I DON'T KNOW!\"",
+				}
+			},
+			
+			j_TLB_frost = {
+				name = "Permafrost",
+				text = {
+					"When hand is played, {V:1}-#1#{} blind requirement three times",
+					"Damage increases by {V:1}#2#{} before every hit",
+					"{s:0.4} ",
+					"{s:0.7,C:inactive}\"I'm here, Kris. Where are the enemies?\"",
+				}
+
+			},
+			
+			j_TLB_photocopy = {
+				name = "Photocopier",
+				text = {
+					"When hand is played, create copies of of every scoring card",
+					"with no editions, enhancements, or seals, and draw them to hand"
+				}
+			}
+
 
 
 		},
