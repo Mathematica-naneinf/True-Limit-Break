@@ -65,6 +65,7 @@ SMODS.Joker {
 	rarity = 2,
 	pools = {
 		["Meme"] = true,
+		["Reference"] = true
 	},
 	cost = 5,
 	
@@ -109,7 +110,7 @@ SMODS.Joker {
 	unlocked = true,
 	discovered = true,
 	rarity = "cry_epic",
-	cost = 3,
+	cost = 12,
 	
 	loc_vars = function(self, info_queue, card)
 		return {
@@ -417,6 +418,9 @@ SMODS.Joker {
 	unlocked = true,
 	discovered = true,
 	rarity = 3,
+	pools = {
+		["reference"] = true,
+	},
 	cost = 7,
 	
 	loc_vars = function(self, info_queue, card)
@@ -479,12 +483,17 @@ SMODS.Joker {
 	config = {
 		extra = {
 			damage = 300,
-			scalar = 50
+			scalar = 50,
+			quote = "\"Don't expect me to do anything but fight.\""
 		},
 	},
 	unlocked = true,
 	discovered = true,
 	rarity = 3,
+	pools = {
+		["Reference"] = true,
+		["Delta"] = true
+	}
 	cost = 11,
 	
 	loc_vars = function(self, info_queue, card)
@@ -492,6 +501,7 @@ SMODS.Joker {
 			vars = {
 				card.ability.extra.damage,
 				card.ability.extra.scalar,
+				card.ability.extra.quote,
 				colours = {
 					HEX("FF2CF9")
 				}
@@ -501,13 +511,407 @@ SMODS.Joker {
 	
 	calculate = function (self, card, context)
 		if context.before then
-			G.GAME.blind.chips = G.GAME.blind.chips - card.ability.extra.damage
-			G.GAME.blind.chip_text = number_format(G.GAME.blind.chips)
-			G.HUD_blind:recalculate()
+			return {
+				blindsize = -card.ability.extra.damage,
+				remove_default_message = true,
+				message = card.ability.extra.damage .. " Damage!",
+				colour = HEX("FF2CF9")
+			}
 		end
 		
 		if context.end_of_round and context.beat_boss then
 			card.ability.extra.damage = card.ability.extra.damage + card.ability.extra.scalar
+		end
+	end
+}
+
+
+-- Heal Prayer
+
+SMODS.Joker {
+	key = "heal",
+	atlas = "TLB_Jokers",
+	pos = {
+		x = 2,
+		y = 1
+	},
+	config = {
+		extra = {
+			hands = 1,
+			activation_discards = 2,
+			discards = 0,
+			quote = "\"I'll protect everyone!\""
+		}
+	},
+	unlocked = true,
+	discovered = true,
+	rarity = 2,
+	pools = {
+		["Reference"] = true,
+		["Delta"] = true
+	},
+	cost = 5,
+	
+	loc_vars = function(self, info_queue, card)
+		return {
+			vars = {
+				card.ability.extra.hands,
+				card.ability.extra.activation_discards,
+				card.ability.extra.discards,
+				card.ability.extra.quote
+			}
+		}
+	end,
+	
+	calculate = function (self, card, context)
+		if context.pre_discard then
+			card.ability.extra.discards = card.ability.extra.discards + 1
+			if card.ability.extra.discards >= card.ability.extra.activation_discards then
+				card.ability.extra.discards = 0
+				return {
+					ease_hands_played(card.ability.extra.hands)
+				}
+			end
+		end
+	end
+}
+
+
+-- Iceshock
+
+SMODS.Joker {
+	key = "ice",
+	atlas = "TLB_Jokers",
+	pos = {
+		x = 3,
+		y = 1
+	},
+	config = {
+		extra = {
+			damage = 150,
+			scalar = 5,
+			transform = 35,
+			activations = 0,
+		}
+	},
+	unlocked = true,
+	discovered = true,
+	rarity = "cry_epic",
+	pools = {
+		["Reference"] = true,
+		["Delta"] = true
+	},
+	cost = 10,
+	
+	loc_vars = function(self, info_queue, card)
+		return {
+			vars = {
+				card.ability.extra.damage,
+				card.ability.extra.scalar,
+				card.ability.extra.transform,
+				card.ability.extra.transform - card.ability.extra.activations,
+				colours = {
+					HEX("FFF120"),
+					HEX("0293FD")
+				}
+			}
+		}
+	end,
+	
+	calculate = function (self, card, context)
+		if context.before then
+			return {
+				blindsize = -card.ability.extra.damage,
+				remove_default_message = true,
+				message = card.ability.extra.damage .. " Damage!",
+				colour = HEX("FFF120")
+			}
+		end
+		
+		if context.initial_scoring_step then
+			card.ability.extra.damage = card.ability.extra.damage + card.ability.extra.scalar
+			card.ability.extra.activations = card.ability.extra.activations + 1
+			
+			if card.ability.extra.activations >= card.ability.extra.transform then
+				G.E_MANAGER:add_event(Event({
+					func = function()
+						if G.jokers then
+							
+							-- Destroy this Joker
+							G.jokers:remove_card(card)
+							card:remove()
+							card = nil
+							
+							-- Create a "joker" with key "j_TLB_grave"
+							SMODS.add_card{
+								set = "joker",
+								key = "j_TLB_grave"
+							}
+							
+							-- Tell the game the function has finished running so it doesn't contine to run every frame forever.
+							return true
+						end
+					end,
+				}))
+
+			end
+		end
+
+	end
+}
+
+
+-- X-Slash
+
+SMODS.Joker {
+	key = "slash",
+	atlas = "TLB_Jokers",
+	pos = {
+		x = 4,
+		y = 1
+	},
+	config = {
+		extra = {
+			damage = 250,
+			quote = "\"...\""
+		}
+	},
+	unlocked = true,
+	discovered = true,
+	rarity = 3,
+	pools = {
+		["Reference"] = true,
+		["Delta"] = true
+	},
+	cost = 8,
+	
+	loc_vars = function(self, info_queue, card)
+		return {
+			vars = {
+				card.ability.extra.damage,
+				card.ability.extra.quote,
+				colours = {
+					HEX("26E9FF")
+				}
+			}
+		}
+	end,
+	
+	calculate = function (self, card, context)
+		if context.before then
+			return {
+				blindsize = -card.ability.extra.damage,
+				remove_default_message = true,
+				message = card.ability.extra.damage .. " Damage!",
+				colour = HEX("26E9FF")
+			}
+		end
+		
+		if context.initial_scoring_step then
+			return {
+				blindsize = -card.ability.extra.damage,
+				remove_default_message = true,
+				message = card.ability.extra.damage .. " Damage!",
+				colour = HEX("26E9FF")
+			}
+		end
+	end
+}
+
+
+-- SNOWGRAVE
+
+SMODS.Joker {
+	key = "grave",
+	atlas = "TLB_Jokers",
+	pos = {
+		x = 5, 
+		y = 1
+	},
+	config = {
+		extra = {
+			damage = 3000,
+			scalar = 200,
+			frost = 2,
+			frost_scalar = 1.1
+		},
+	},
+	unlocked = true,
+	discovered = true,
+	rarity = "cry_exotic",
+	cost = 35,
+	
+	loc_vars = function(self, info_queue, card)
+		return {
+			vars = {
+				card.ability.extra.damage,
+				card.ability.extra.scalar,
+				card.ability.extra.frost,
+				card.ability.extra.frost_scalar,
+				colours = {
+					HEX("FFF120"),
+					HEX("0293FD"),
+					HEX("77E0FF"),
+				}
+			}
+		}
+	end,
+	
+	
+	
+	calculate = function(self, card, context)
+		if context.before then
+			return {
+				xblindsize = 1/card.ability.extra.frost,
+				remove_default_message = true,
+				message = "What... Happened?",
+				colour = HEX("FFF120")
+			}
+		end
+		
+		if context.initial_scoring_step then
+			card.ability.extra.damage = card.ability.extra.damage + card.ability.extra.scalar
+			return {
+				blindsize = -card.ability.extra.damage,
+				remove_default_message = true,
+				message = "There was so much snow, I couldn't see anything...",
+				colour = HEX("FFF120")
+			}
+
+							
+		end
+		
+		if context.after then
+			
+			-- Iterate through every played card
+			for i, v in pairs(context.full_hand) do
+				
+				
+			end
+
+		end
+		
+		if context.end_of_round and context.beat_boss and context.main_eval then
+			card.ability.extra.frost = card.ability.extra.frost * card.ability.extra.frost_scalar
+		end
+
+	end
+}
+
+
+-- Permafrost
+
+SMODS.Joker {
+	key = "frost",
+	atlas = "TLB_Jokers",
+	pos = {
+		x = 6,
+		y = 1
+	},
+	config = {
+		extra = {
+			damage = 600,
+			scalar = 10,
+		}
+	},
+	unlocked = true,
+	discovered = true,
+	rarity = "cry_epic",
+	pools = {
+		["Reference"] = true
+	},
+	cost = 10,
+	
+	loc_vars = function(self, info_queue, card)
+		return {
+			vars = {
+				card.ability.extra.damage,
+				card.ability.extra.scalar,
+				colours = {
+					HEX("77E0FF")
+				}
+			}
+		}
+	end,
+	
+	calculate = function (self, card, context)
+		
+		if context.press_play then
+			
+			card.ability.extra.damage = card.ability.extra.damage + card.ability.extra.scalar
+			
+			return {
+				blindsize = -card.ability.extra.damage,
+				remove_default_message = true,
+				message = card.ability.extra.damage .. " Damage!",
+				colour = HEX("77E0FF")
+			}
+		end
+		
+		if context.before then
+			
+			card.ability.extra.damage = card.ability.extra.damage + card.ability.extra.scalar
+			
+			return {
+				blindsize = -card.ability.extra.damage,
+				remove_default_message = true,
+				message = card.ability.extra.damage .. " Damage!",
+				colour = HEX("77E0FF")
+			}
+		end
+		
+		if context.initial_scoring_step then
+			card.ability.extra.damage = card.ability.extra.damage + card.ability.extra.scalar
+			
+			return {
+				blindsize = -card.ability.extra.damage,
+				remove_default_message = true,
+				message = card.ability.extra.damage .. " Damage!",
+				colour = HEX("77E0FF")
+			}
+		end
+
+	end
+}
+
+
+-- Photocopier
+
+SMODS.Joker {
+	key = "photocopy",
+	atlas = "TLB_Jokers",
+	pos = {
+		x = 7,
+		y = 1
+	},
+	config = {
+		extra = {
+			
+		}
+	},
+	unlocked = true,
+	discovered = true,
+	rarity = 1,
+	cost = 1,
+	
+	loc_vars = function(self, info_queue, card)
+		return {
+			vars = {
+				
+			}
+		}
+	end,
+	
+	calculate = function(self, card, context)
+		if context.before then
+			for i, v in pairs(context.scoring_hand) do
+				SMODS.add_card {
+				set = "Base",
+				area = G.hand,
+				rank = v.base.value,
+				suit = v.base.suit
+			}
+			end
 		end
 	end
 }
