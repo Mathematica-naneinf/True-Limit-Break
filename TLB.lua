@@ -10,5 +10,6 @@
 
 assert(SMODS.load_file("Hooks.lua"))()
 assert(SMODS.load_file("Atlases.lua"))()
+assert(SMODS.load_file("Blinds.lua"))()
 assert(SMODS.load_file("Backs.lua"))()
 assert(SMODS.load_file("Jokers.lua"))()
