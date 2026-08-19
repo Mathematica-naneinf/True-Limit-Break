@@ -10,8 +10,22 @@ return {
 				},
 			},
 		},
-		Blind={},
-		Edition={},
+		Blind={
+			bl_TLB_knight = {
+				name = "The Knight",
+				text = {
+					"Divides score and mult by #1# every hand"
+				}
+			}
+		},
+		Edition={
+			e_TLB_frost = {
+				name = "Frozen",
+				text = {
+					"Never scores"
+				}
+			}
+		},
 		Enhanced={},
 		Joker = {
 			
