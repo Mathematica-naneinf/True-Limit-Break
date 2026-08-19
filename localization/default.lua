@@ -169,10 +169,43 @@ return {
 			j_TLB_photocopy = {
 				name = "Photocopier",
 				text = {
-					"When hand is played, create copies of of every scoring card",
-					"with no editions, enhancements, or seals, and draw them to hand"
+					"When hand is played, create copies of",
+					"every scoring card with no",
+					"editions, enhancements, or seals",
+					"and draw them to hand",
+					"{s:0.4} ",
+					"{s:0.7,C:inactive}\"Copies are monochrome.\"",
+				}
+			},
+			
+			j_TLB_orange = {
+				name = "Orange Joker",
+				text = {
+					"{C:chips}-#3#{} chips per hand played",
+					"{C:chips}+#2#{} chips per discard",
+					"{C:inactive}(Currently {C:chips}+#1#{C:inactive} chips){}"
+				}
+			},
+			
+			j_TLB_retro = {
+				name = "Retro Joker",
+				text = {
+					"This joker gains {C:chips}#2#{} chips",
+					"and {C:mult}#4#{} mult when {C:attention}skipping{} a blind",
+					"{C:inactive}(Currently {C:chips}#1#{C:inactive} chips and {C:mult}#3#{C:inactive} mult){}",
+				}
+			},
+			
+			j_TLB_rook = {
+				name = "Rook",
+				text = {
+					"This Joker gains {C:chips}#2#{} chips when",
+					"a card with the same {C:attention}rank{} or {C:attention}suit{}",
+					"as the last card to trigger this effect is {C:attention}scored{}",
+					"{C:inactive}(Currently {C:chips}#1#{C:inactive} chips and {C:attention}#3# of #4#{C:inactive})"
 				}
 			}
+
 
 
 
