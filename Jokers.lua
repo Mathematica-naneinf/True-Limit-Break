@@ -103,8 +103,8 @@ SMODS.Joker {
 		extra = {
 			mult = 0,
 			chips = 0,
-			mult_gain = 0.5,
-			chip_gain = 2
+			mult_increase = 0.5,
+			chips_increase = 2
 		},
 	},
 	unlocked = true,
@@ -117,16 +117,16 @@ SMODS.Joker {
 			vars = {
 				card.ability.extra.mult,
 				card.ability.extra.chips,
-				card.ability.extra.mult_gain,
-				card.ability.extra.chip_gain
+				card.ability.extra.mult_increase,
+				card.ability.extra.chips_increase
 			}
 		}
 	end,
 	
 	calculate = function(self, card, context)
 		if context.discard and not context.blueprint then
-			card.ability.extra.mult = card.ability.extra.mult + card.ability.extra.mult_gain
-			card.ability.extra.chips = card.ability.extra.chips + card.ability.extra.chip_gain
+			card.ability.extra.mult = card.ability.extra.mult + card.ability.extra.mult_increase
+			card.ability.extra.chips = card.ability.extra.chips + card.ability.extra.chips_increase
 			return {
 				remove = true
 			}
@@ -447,23 +447,23 @@ SMODS.Joker {
 			
 
 
-			-- Check for at least 3 scoring clubs
+			-- Check for at least three scoring clubs
 			if scoring_clubs > 2 then
 
 
 				-- Iterate through every played card
 				for i, v in pairs(context.full_hand) do
 
-				-- Change the card's suit to Clubs
-				assert(SMODS.change_base(v, "Clubs", nil, true))
+					-- Change the card's suit to Clubs
+					assert(SMODS.change_base(v, "Clubs", nil, true))
 
-				-- Ensure this change happens at the right time
-				G.E_MANAGER:add_event(Event({
-					func = function()
-						v:set_sprites(nil, v.config.card)
-						return true
-					end
-				}))
+					-- Ensure this change happens at the right time
+					G.E_MANAGER:add_event(Event({
+						func = function()
+							v:set_sprites(nil, v.config.card)
+							return true
+						end
+					}))
 				end
 			end
 		end
@@ -483,8 +483,8 @@ SMODS.Joker {
 	config = {
 		extra = {
 			damage = 300,
-			scalar = 50,
-			quote = "\"Don't expect me to do anything but fight.\""
+			damage_increase = 50,
+			quote = "\"Don't expect me to do anything but fight.\"",
 		},
 	},
 	unlocked = true,
@@ -493,14 +493,14 @@ SMODS.Joker {
 	pools = {
 		["Reference"] = true,
 		["Delta"] = true
-	}
-	cost = 11,
+	},
+	cost = 8,
 	
 	loc_vars = function(self, info_queue, card)
 		return {
 			vars = {
 				card.ability.extra.damage,
-				card.ability.extra.scalar,
+				card.ability.extra.damage_increase,
 				card.ability.extra.quote,
 				colours = {
 					HEX("FF2CF9")
@@ -519,8 +519,8 @@ SMODS.Joker {
 			}
 		end
 		
-		if context.end_of_round and context.beat_boss then
-			card.ability.extra.damage = card.ability.extra.damage + card.ability.extra.scalar
+		if context.end_of_round and context.beat_boss and context.main_eval then
+			card.ability.extra.damage = card.ability.extra.damage + card.ability.extra.damage_increase
 		end
 	end
 }
@@ -589,7 +589,7 @@ SMODS.Joker {
 	config = {
 		extra = {
 			damage = 150,
-			scalar = 5,
+			damage_increase = 5,
 			transform = 35,
 			activations = 0,
 		}
@@ -607,7 +607,7 @@ SMODS.Joker {
 		return {
 			vars = {
 				card.ability.extra.damage,
-				card.ability.extra.scalar,
+				card.ability.extra.damage_increase,
 				card.ability.extra.transform,
 				card.ability.extra.transform - card.ability.extra.activations,
 				colours = {
@@ -629,7 +629,7 @@ SMODS.Joker {
 		end
 		
 		if context.initial_scoring_step then
-			card.ability.extra.damage = card.ability.extra.damage + card.ability.extra.scalar
+			card.ability.extra.damage = card.ability.extra.damage + card.ability.extra.damage_increase
 			card.ability.extra.activations = card.ability.extra.activations + 1
 			
 			if card.ability.extra.activations >= card.ability.extra.transform then
@@ -731,9 +731,9 @@ SMODS.Joker {
 	config = {
 		extra = {
 			damage = 3000,
-			scalar = 200,
+			damage_increase = 200,
 			frost = 2,
-			frost_scalar = 1.1
+			frost_multiplier = 1.1
 		},
 	},
 	unlocked = true,
@@ -745,9 +745,9 @@ SMODS.Joker {
 		return {
 			vars = {
 				card.ability.extra.damage,
-				card.ability.extra.scalar,
+				card.ability.extra.damage_increase,
 				card.ability.extra.frost,
-				card.ability.extra.frost_scalar,
+				card.ability.extra.frost_multiplier,
 				colours = {
 					HEX("FFF120"),
 					HEX("0293FD"),
@@ -770,7 +770,7 @@ SMODS.Joker {
 		end
 		
 		if context.initial_scoring_step then
-			card.ability.extra.damage = card.ability.extra.damage + card.ability.extra.scalar
+			card.ability.extra.damage = card.ability.extra.damage + card.ability.extra.damage_increase
 			return {
 				blindsize = -card.ability.extra.damage,
 				remove_default_message = true,
@@ -792,7 +792,7 @@ SMODS.Joker {
 		end
 		
 		if context.end_of_round and context.beat_boss and context.main_eval then
-			card.ability.extra.frost = card.ability.extra.frost * card.ability.extra.frost_scalar
+			card.ability.extra.frost = card.ability.extra.frost * card.ability.extra.frost_multiplier
 		end
 
 	end
@@ -811,7 +811,7 @@ SMODS.Joker {
 	config = {
 		extra = {
 			damage = 600,
-			scalar = 10,
+			damage_increase = 10,
 		}
 	},
 	unlocked = true,
@@ -826,7 +826,7 @@ SMODS.Joker {
 		return {
 			vars = {
 				card.ability.extra.damage,
-				card.ability.extra.scalar,
+				card.ability.extra.damage_increase,
 				colours = {
 					HEX("77E0FF")
 				}
@@ -838,7 +838,7 @@ SMODS.Joker {
 		
 		if context.press_play then
 			
-			card.ability.extra.damage = card.ability.extra.damage + card.ability.extra.scalar
+			card.ability.extra.damage = card.ability.extra.damage + card.ability.extra.damage_increase
 			
 			return {
 				blindsize = -card.ability.extra.damage,
@@ -850,7 +850,7 @@ SMODS.Joker {
 		
 		if context.before then
 			
-			card.ability.extra.damage = card.ability.extra.damage + card.ability.extra.scalar
+			card.ability.extra.damage = card.ability.extra.damage + card.ability.extra.damage_increase
 			
 			return {
 				blindsize = -card.ability.extra.damage,
@@ -861,7 +861,7 @@ SMODS.Joker {
 		end
 		
 		if context.initial_scoring_step then
-			card.ability.extra.damage = card.ability.extra.damage + card.ability.extra.scalar
+			card.ability.extra.damage = card.ability.extra.damage + card.ability.extra.damage_increase
 			
 			return {
 				blindsize = -card.ability.extra.damage,
@@ -891,8 +891,8 @@ SMODS.Joker {
 	},
 	unlocked = true,
 	discovered = true,
-	rarity = 1,
-	cost = 1,
+	rarity = 2,
+	cost = 6,
 	
 	loc_vars = function(self, info_queue, card)
 		return {
@@ -910,11 +910,232 @@ SMODS.Joker {
 				area = G.hand,
 				rank = v.base.value,
 				suit = v.base.suit
-			}
+				}
 			end
 		end
 	end
 }
+
+
+-- Orange Joker
+
+SMODS.Joker {
+	key = "orange",
+	atlas = "TLB_Jokers",
+	pos = {
+		x = 8,
+		y = 1
+	},
+	config = {
+		extra = {
+			chips = 0,
+			chips_increase = 20,
+			chips_decrease = 15
+		}
+	},
+	unlocked = true,
+	discovered = true,
+	rarity = 1,
+	cost = 3,
+	
+	loc_vars = function(self, info_queue, card)
+		return {
+			vars = {
+				card.ability.extra.chips,
+				card.ability.extra.chips_increase,
+				card.ability.extra.chips_decrease
+			}
+		}
+	end,
+	
+	calculate = function(self, card, context)
+		if context.joker_main then
+			return {
+				chips = card.ability.extra.chips
+			}
+		end
+		
+		if context.initial_scoring_step then
+			if card.ability.extra.chips > 0 then
+				card.ability.extra.chips = card.ability.extra.chips - card.ability.extra.chips_decrease
+				
+				if card.ability.extra.chips < 0 then
+					card.ability.extra.chips = 0
+					return {
+					message = "0",
+					colour = G.C.CHIPS
+					}
+				else
+					return {
+					message = "-" .. card.ability.extra.chips_decrease,
+					colour = G.C.CHIPS
+					}
+				end
+			end
+		end
+		
+		if context.pre_discard then
+			card.ability.extra.chips = card.ability.extra.chips + card.ability.extra.chips_increase
+			return {
+				message = "+" .. card.ability.extra.chips_increase,
+				colour = G.C.CHIPS
+			}
+		end
+	end
+}
+
+
+-- Retro Joker
+
+SMODS.Joker {
+	key = "retro",
+	atlas = "TLB_Jokers",
+	pos = {
+		x = 9,
+		y = 1
+	},
+	config = {
+		extra = {
+			chips = 0,
+			chips_increase = 50,
+			mult = 0,
+			mult_increase = 4
+		}
+	},
+	unlocked = true,
+	discovered = true,
+	rarity = 2,
+	cost = 6,
+	
+	loc_vars = function(self, info_queue, card)
+		return {
+			vars = {
+				card.ability.extra.chips,
+				card.ability.extra.chips_increase,
+				card.ability.extra.mult,
+				card.ability.extra.mult_increase
+			}
+		}
+	end,
+	
+	calculate = function(self, card, context)
+		if context.joker_main then
+			return {
+				chips = card.ability.extra.chips,
+				mult = card.ability.extra.mult
+			}
+		end
+		
+		if context.skip_blind then
+			card.ability.extra.chips = card.ability.extra.chips + card.ability.extra.chips_increase
+			card.ability.extra.mult = card.ability.extra.mult + card.ability.extra.mult_increase
+			return {
+				message = "Upgraded!",
+				colour = G.C.PURPLE
+			}
+		end
+	end
+}
+
+
+-- Rook
+
+SMODS.Joker {
+	key = "rook",
+	atlas = "TLB_Jokers",
+	pos = {
+		x = 0,
+		y = 2
+	},
+	config = {
+		extra = {
+			chips = 5,
+			chips_increase = 5,
+			last_rank = "Ace",
+			last_suit = "Spades"
+		}
+	},
+	unlocked = true,
+	discovered = true,
+	rarity = 2,
+	cost = 5,
+	
+	loc_vars = function(self, info_queue, card)
+		return {
+			vars = {
+				card.ability.extra.chips,
+				card.ability.extra.chips_increase,
+				card.ability.extra.last_rank,
+				card.ability.extra.last_suit
+			}
+		}
+	end,
+	
+	calculate = function(self, card, context)
+		if context.joker_main then
+			return {
+				chips = card.ability.extra.chips
+			}
+		end
+		
+		if context.individual and context.cardarea == G.play then
+			
+			if context.other_card.base.value == card.ability.extra.last_rank then
+				card.ability.extra.chips = card.ability.extra.chips + card.ability.extra.chips_increase
+				card.ability.extra.last_rank = context.other_card.base.value
+				return {
+				message = "Upgraded!",
+				colour = G.C.CHIPS
+				}
+			end
+			
+			if context.other_card.base.suit == card.ability.extra.last_suit then
+				card.ability.extra.chips = card.ability.extra.chips + card.ability.extra.chips_increase
+				card.ability.extra.last_suit = context.other_card.base.suit
+				return {
+				message = "Upgraded!",
+				colour = G.C.CHIPS
+				}
+			end
+			
+		end
+	end
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
