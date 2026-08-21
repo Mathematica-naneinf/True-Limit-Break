@@ -1038,13 +1038,13 @@ SMODS.Joker {
 }
 
 
--- Rook
+-- Blue Rook
 
 SMODS.Joker {
-	key = "rook",
+	key = "rook_b",
 	atlas = "TLB_Jokers",
 	pos = {
-		x = 0,
+		x = 1,
 		y = 2
 	},
 	config = {
@@ -1080,20 +1080,22 @@ SMODS.Joker {
 		
 		if context.individual and context.cardarea == G.play then
 			
-			if context.other_card.base.value == card.ability.extra.last_rank then
-				card.ability.extra.chips = card.ability.extra.chips + card.ability.extra.chips_increase
-				card.ability.extra.last_rank = context.other_card.base.value
-				return {
-				message = "Upgraded!",
-				colour = G.C.CHIPS
-				}
-			end
-			
-			if context.other_card.base.suit == card.ability.extra.last_suit then
+			if (context.other_card.base.value == card.ability.extra.last_rank) and (context.other_card.base.suit ~= card.ability.extra.last_suit) then
 				card.ability.extra.chips = card.ability.extra.chips + card.ability.extra.chips_increase
 				card.ability.extra.last_suit = context.other_card.base.suit
 				return {
 				message = "Upgraded!",
+				message_card = card,
+				colour = G.C.CHIPS
+				}
+			end
+			
+			if (context.other_card.base.suit == card.ability.extra.last_suit) and (context.other_card.base.value ~= card.ability.extra.last_rank) then
+				card.ability.extra.chips = card.ability.extra.chips + card.ability.extra.chips_increase
+				card.ability.extra.last_rank = context.other_card.base.value
+				return {
+				message = "Upgraded!",
+				message_card = card,
 				colour = G.C.CHIPS
 				}
 			end
@@ -1101,6 +1103,74 @@ SMODS.Joker {
 		end
 	end
 }
+
+
+-- Red Rook
+
+SMODS.Joker {
+	key = "rook_r",
+	atlas = "TLB_Jokers",
+	pos = {
+		x = 0,
+		y = 2
+	},
+	config = {
+		extra = {
+			mult = 0,
+			mult_increase = 1.5,
+			last_rank = "King",
+			last_suit = "Diamonds"
+		}
+	},
+	unlocked = true,
+	discovered = true,
+	rarity = 2,
+	cost = 5,
+	
+	loc_vars = function(self, info_queue, card)
+		return {
+			vars = {
+				card.ability.extra.mult,
+				card.ability.extra.mult_increase,
+				card.ability.extra.last_rank,
+				card.ability.extra.last_suit
+			}
+		}
+	end,
+	
+	calculate = function(self, card, context)
+		if context.joker_main then
+			return {
+				chips = card.ability.extra.mult
+			}
+		end
+		
+		if context.individual and context.cardarea == G.play then
+			
+			if (context.other_card.base.value == card.ability.extra.last_rank) and (context.other_card.base.suit ~= card.ability.extra.last_suit) then
+				card.ability.extra.mult = card.ability.extra.mult + card.ability.extra.mult_increase
+				card.ability.extra.last_suit = context.other_card.base.suit
+				return {
+				message = "Upgraded!",
+				message_card = card,
+				colour = G.C.MULT
+				}
+			end
+			
+			if (context.other_card.base.suit == card.ability.extra.last_suit) and (context.other_card.base.value ~= card.ability.extra.last_rank) then
+				card.ability.extra.mult = card.ability.extra.mult + card.ability.extra.mult_increase
+				card.ability.extra.last_rank = context.other_card.base.value
+				return {
+				message = "Upgraded!",
+				message_card = card,
+				colour = G.C.MULT
+				}
+			end
+			
+		end
+	end
+}
+
 
 
 
