@@ -210,13 +210,23 @@ return {
 				}
 			},
 			
-			j_TLB_rook = {
-				name = "Rook",
+			j_TLB_rook_b = {
+				name = "Blue Rook",
 				text = {
 					"This Joker gains {C:chips}#2#{} chips when",
 					"a card with the same {C:attention}rank{} or {C:attention}suit{}",
 					"as the last card to trigger this effect is {C:attention}scored{}",
 					"{C:inactive}(Currently {C:chips}#1#{C:inactive} chips and {C:attention}#3# of #4#{C:inactive})"
+				}
+			},
+			
+			j_TLB_rook_r = {
+				name = "Red Rook",
+				text = {
+					"This Joker gains {C:mult}#2#{} mult when",
+					"a card with the same {C:attention}rank{} or {C:attention}suit{}",
+					"as the last card to trigger this effect is {C:attention}scored{}",
+					"{C:inactive}(Currently {C:mult}#1#{C:inactive} mult and {C:attention}#3# of #4#{C:inactive})"
 				}
 			}
 
